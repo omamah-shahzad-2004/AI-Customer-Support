@@ -60,7 +60,7 @@ export async function POST(req) {
 
   const completion = await client.generateMessage({
     model: "models/chat-bison-001",
-    temperature: 0.5,
+    temperature: 0.1,
     candidateCount: 1,
     prompt: {
       context: prompt,
@@ -68,23 +68,5 @@ export async function POST(req) {
     },
   });
 
-  const stream = new ReadableStream({
-    async start(controller) {
-      const encoder = new TextEncoder();
-      try {
-        for await (const chunk of completion) {
-          const content = chunk.candidates[0]?.content;
-          if (content) {
-            const text = encoder.encode(content);
-            controller.enqueue(text);
-          }
-        }
-      } catch (err) {
-        controller.error(err);
-      } finally {
-        controller.close();
-      }
-    },
-  });
   return new NextResponse(completion[0].candidates[0].content);
 }

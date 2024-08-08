@@ -9,7 +9,7 @@ export default function Home() {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: "Hi! I am HeadStarter Support Assistant. How can I help you today?"
+      content: "Hi! I am HeadStarter Support Assistant. How can I assist you today?"
     },
   ])
 
@@ -60,8 +60,8 @@ export default function Home() {
       justifyContent="center"
       alignItems="center">
       <Stack direction={'column'}
-        width="700px"
-        height="450px"
+        width="1100px"
+        height="470px"
         border="1px solid black"
         p={2}
         spacing={3}
