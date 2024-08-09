@@ -14,11 +14,13 @@ export default function Home() {
   ])
 
   const [message, setMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const sendMessage = async () => {
-    if(!message.trim()) {
+    if(!message.trim() || isLoading) {
       return;
     }
+    setIsLoading(true)
 
     setMessage('')
     setMessages((messages) => [
@@ -62,6 +64,15 @@ export default function Home() {
         {role: 'assistant', content: "I am sorry, I encountered an error. Please try again later."}
       ])
     }
+
+    setIsLoading(false)
+  }
+
+  const handleKeyPress = (event) => {
+    if(event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault()
+      sendMessage()
+    }
   }
 
   return (
@@ -101,9 +112,11 @@ export default function Home() {
           <TextField label="Message"
             fullWidth
             value={message}
-            onChange={(e) => setMessage(e.target.value)} />
-          <Button variant="contained" onClick={sendMessage}>
-            Send
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyPress={handleKeyPress}
+            disabled={isLoading} />
+          <Button variant="contained" onClick={sendMessage} disabled={isLoading}>
+            {isLoading ? 'Sending...' : 'Send'}
           </Button>
         </Stack>
       </Stack>
