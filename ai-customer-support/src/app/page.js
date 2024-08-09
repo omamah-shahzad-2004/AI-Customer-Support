@@ -109,7 +109,7 @@ export default function Home() {
               display="flex"
               justifyContent={message.role === 'assistant' ? 'flex-start' : 'flex-end'}>
               <Box
-                bgcolor={message.role === 'assistant' ? 'primary.main' : 'secondary.main'}
+                bgcolor={message.role === 'assistant' ? 'text.disabled' : 'primary.main'}
                 color="white"
                 borderRadius={16}
                 p={3}>
